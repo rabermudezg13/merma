@@ -10,21 +10,3 @@ function calcularMerma(pergamino, verde, tostado, precioPergamino) {
     
     return [mermaVerde, mermaTostado, precioTostado];
 }
-
-// Función para solicitar un número al usuario
-function pedirNumero(mensaje) {
-    return parseFloat(prompt(mensaje));
-}
-
-// Solicitar los valores al usuario en el orden correcto
-const pergamino = pedirNumero("Ingrese el peso del café en pergamino (kg): ");
-const verde = pedirNumero("Ingrese el peso del café verde (kg): ");
-const tostado = pedirNumero("Ingrese el peso del café tostado (kg): ");
-const precioPergamino = pedirNumero("Ingrese el precio del café en pergamino (por kg): ");
-
-// Calcular y mostrar los resultados
-const [mermaVerde, mermaTostado, precioTostado] = calcularMerma(pergamino, verde, tostado, precioPergamino);
-
-console.log(`Merma del café verde: ${mermaVerde.toFixed(2)}%`);
-console.log(`Merma del café tostado: ${mermaTostado.toFixed(2)}%`);
-console.log(`Precio del café tostado (por kg): $${precioTostado.toFixed(2)}`);
