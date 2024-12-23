@@ -1,30 +1,130 @@
-function calcularMerma(pergamino, verde, tostado, precioPergamino) {
-    // Calcular el porcentaje de merma del café verde
-    const mermaVerde = 100 * (1 - verde / pergamino);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Merma de Café</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+        #resultados {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #resultados h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        #resultados p {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Merma de Café</h1>
     
-    // Calcular el porcentaje de merma del café tostado
-    const mermaTostado = 100 * (1 - tostado / verde);
-    
-    // Calcular el precio del café tostado por kilo
-    const precioTostado = precioPergamino * pergamino / tostado;
-    
-    return [mermaVerde, mermaTostado, precioTostado];
-}
+    <div class="form-group">
+        <label for="pergamino">Peso del café en pergamino (kg):</label>
+        <input type="number" id="pergamino" step="0.01" required>
+    </div>
 
-// Función para solicitar un número al usuario
-function pedirNumero(mensaje) {
-    return parseFloat(prompt(mensaje));
-}
+    <div class="form-group">
+        <label for="verde">Peso del café verde (kg):</label>
+        <input type="number" id="verde" step="0.01" required>
+    </div>
 
-// Solicitar los valores al usuario en el orden correcto
-const pergamino = pedirNumero("Ingrese el peso del café en pergamino (kg): ");
-const verde = pedirNumero("Ingrese el peso del café verde (kg): ");
-const tostado = pedirNumero("Ingrese el peso del café tostado (kg): ");
-const precioPergamino = pedirNumero("Ingrese el precio del café en pergamino (por kg): ");
+    <div class="form-group">
+        <label for="tostado">Peso del café tostado (kg):</label>
+        <input type="number" id="tostado" step="0.01" required>
+    </div>
 
-// Calcular y mostrar los resultados
-const [mermaVerde, mermaTostado, precioTostado] = calcularMerma(pergamino, verde, tostado, precioPergamino);
+    <div class="form-group">
+        <label for="precio">Precio del café en pergamino (por kg):</label>
+        <input type="number" id="precio" step="0.01" required>
+    </div>
 
-console.log(`Merma del café verde: ${mermaVerde.toFixed(2)}%`);
-console.log(`Merma del café tostado: ${mermaTostado.toFixed(2)}%`);
-console.log(`Precio del café tostado (por kg): $${precioTostado.toFixed(2)}`);
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultados"></div>
+
+    <script>
+        function calcularMerma(pergamino, verde, tostado, precioPergamino) {
+            const mermaVerde = 100 * (1 - verde / pergamino);
+            const mermaTostado = 100 * (1 - tostado / verde);
+            const precioTostado = precioPergamino * pergamino / tostado;
+            return [mermaVerde, mermaTostado, precioTostado];
+        }
+
+        function calcular() {
+            const pergamino = parseFloat(document.getElementById('pergamino').value);
+            const verde = parseFloat(document.getElementById('verde').value);
+            const tostado = parseFloat(document.getElementById('tostado').value);
+            const precioPergamino = parseFloat(document.getElementById('precio').value);
+
+            if (isNaN(pergamino) || isNaN(verde) || isNaN(tostado) || isNaN(precioPergamino)) {
+                alert('Por favor, ingrese todos los valores numéricos');
+                return;
+            }
+
+            const [mermaVerde, mermaTostado, precioTostado] = calcularMerma(pergamino, verde, tostado, precioPergamino);
+
+            document.getElementById('resultados').innerHTML = `
+                <h2>Resultados:</h2>
+                <p>Merma del café verde: ${mermaVerde.toFixed(2)}%</p>
+                <p>Merma del café tostado: ${mermaTostado.toFixed(2)}%</p>
+                <p>Precio del café tostado (por kg): $${precioTostado.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
